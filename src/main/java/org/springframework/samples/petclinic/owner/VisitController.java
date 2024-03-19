@@ -16,7 +16,9 @@
 package org.springframework.samples.petclinic.owner;
 
 import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
+import org.springframework.web.client.HttpClientErrorException;
 
 /**
  * @author Juergen Hoeller
@@ -59,7 +62,8 @@ class VisitController {
 	@ModelAttribute("visit")
 	public Visit loadPetWithVisit(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId,
 			Map<String, Object> model) {
-		Owner owner = this.owners.findById(ownerId);
+		Owner owner = this.owners.findById(ownerId)
+			.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 
 		Pet pet = owner.getPet(petId);
 		model.put("pet", pet);

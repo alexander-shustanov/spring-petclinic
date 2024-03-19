@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.owner;
 import java.time.LocalDate;
 import java.util.Collection;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
+import org.springframework.web.client.HttpClientErrorException;
 
 /**
  * @author Juergen Hoeller
@@ -57,7 +59,8 @@ class PetController {
 	@ModelAttribute("owner")
 	public Owner findOwner(@PathVariable("ownerId") int ownerId) {
 
-		Owner owner = this.owners.findById(ownerId);
+		Owner owner = this.owners.findById(ownerId)
+			.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 		if (owner == null) {
 			throw new IllegalArgumentException("Owner ID not found: " + ownerId);
 		}
@@ -68,7 +71,8 @@ class PetController {
 	public Pet findPet(@PathVariable("ownerId") int ownerId,
 			@PathVariable(name = "petId", required = false) Integer petId) {
 
-		Owner owner = this.owners.findById(ownerId);
+		Owner owner = this.owners.findById(ownerId)
+			.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 		if (owner == null) {
 			throw new IllegalArgumentException("Owner ID not found: " + ownerId);
 		}
