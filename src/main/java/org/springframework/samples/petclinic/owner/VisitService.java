@@ -8,23 +8,23 @@ import java.time.LocalDate;
 @Service
 public class VisitService {
 
-//	private final VisitRepository visitRepository;
-//
-//	public VisitService(VisitRepository visitRepository) {
-//		this.visitRepository = visitRepository;
-//	}
-//
-//
-//	public boolean isDateSlotAvailable(Vet vet, LocalDate visitDate) {
-//		return visitRepository.findByAssignedVetAndDate(vet, visitDate) == null;
-//	}
-//
-//	public Visit createVisit(Pet pet, Vet vet, LocalDate date, String description) {
-//		Visit visit = new Visit();
-//		visit.setPet(pet);
-//		visit.setAssignedVet(vet);
-//		visit.setDate(date);
-//		visit.setDescription(description);
-//		return visitRepository.save(visit);
-//	}
+	private final VisitRepository visitRepository;
+
+	public VisitService(VisitRepository visitRepository) {
+		this.visitRepository = visitRepository;
+	}
+
+
+	public boolean isDateSlotAvailable(Vet vet, LocalDate visitDate) {
+		return !visitRepository.existsByAssignedVetAndDate(vet, visitDate);
+	}
+
+	public Visit createVisit(Pet pet, Vet vet, LocalDate date, String description) {
+		Visit visit = new Visit();
+		visit.setPet(pet);
+		visit.setAssignedVet(vet);
+		visit.setDate(date);
+		visit.setDescription(description);
+		return visitRepository.save(visit);
+	}
 }
