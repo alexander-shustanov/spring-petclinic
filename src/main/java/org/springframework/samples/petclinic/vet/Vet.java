@@ -15,9 +15,11 @@
  */
 package org.springframework.samples.petclinic.vet;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.springframework.samples.petclinic.model.Person;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -30,5 +32,17 @@ import org.springframework.samples.petclinic.model.Person;
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
+	@ManyToMany
+	@JoinTable(name = "vets_specialties",
+		joinColumns = @JoinColumn(name = "vet_id"),
+		inverseJoinColumns = @JoinColumn(name = "specialties_id"))
+	private Set<Specialty> specialties = new LinkedHashSet<>();
 
+	public Set<Specialty> getSpecialties() {
+		return specialties;
+	}
+
+	public void setSpecialties(Set<Specialty> specialties) {
+		this.specialties = specialties;
+	}
 }

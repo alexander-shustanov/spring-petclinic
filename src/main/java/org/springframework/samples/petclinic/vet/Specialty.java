@@ -15,10 +15,13 @@
  */
 package org.springframework.samples.petclinic.vet;
 
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.samples.petclinic.model.NamedEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+
+import java.util.Objects;
 
 /**
  * Models a {@link Vet Vet's} specialty (for example, dentistry).
@@ -28,5 +31,23 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "specialties")
 public class Specialty extends NamedEntity {
+	@Override
+	public final boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null) return false;
+		Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer()
+			.getPersistentClass() : o.getClass();
+		Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer()
+			.getPersistentClass() : this.getClass();
+		if (thisEffectiveClass != oEffectiveClass) return false;
+		Specialty specialty = (Specialty) o;
+		return getId() != null && Objects.equals(getId(), specialty.getId());
+	}
 
+	@Override
+	public final int hashCode() {
+		return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer()
+			.getPersistentClass()
+			.hashCode() : getClass().hashCode();
+	}
 }
