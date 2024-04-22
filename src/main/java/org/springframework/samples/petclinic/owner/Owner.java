@@ -54,6 +54,9 @@ public class Owner extends Person {
 	@NotBlank
 	private String city;
 
+	@Column(name = "fax")
+	private String fax;
+
 	@Column(name = "telephone")
 	@NotBlank
 	@Digits(fraction = 0, integer = 10)
@@ -63,6 +66,14 @@ public class Owner extends Person {
 	@JoinColumn(name = "owner_id")
 	@OrderBy("name")
 	private List<Pet> pets = new ArrayList<>();
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
 
 	public String getAddress() {
 		return this.address;
