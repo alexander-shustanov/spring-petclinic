@@ -38,6 +38,7 @@ dependencies {
     compileOnly 'org.mapstruct:mapstruct:1.5.3.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     implementation 'io.amplicode:react-admin-utils-starter:0.2.0'
+    implementation 'org.springframework.kafka:spring-kafka'
 }
 
 tasks.named('test') {
