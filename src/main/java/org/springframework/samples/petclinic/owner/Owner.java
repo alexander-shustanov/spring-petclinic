@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.owner;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.constraints.Email;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.model.Person;
 import org.springframework.util.Assert;
@@ -59,10 +60,22 @@ public class Owner extends Person {
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
 
+	@Email
+	@Column(name = "email")
+	private String email;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "owner_id")
 	@OrderBy("name")
 	private List<Pet> pets = new ArrayList<>();
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getAddress() {
 		return this.address;
