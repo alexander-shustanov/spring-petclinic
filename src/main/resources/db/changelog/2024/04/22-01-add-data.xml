@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+	<!--generate via wizard-->
+	<changeSet id="1713815343764-1" author="georgii">
+		<insert tableName="vets">
+			<column name="first_name" value="Ivan"/>
+			<column name="last_name" value="Ivanov"/>
+		</insert>
+	</changeSet>
+
+	<!--type this by hand-->
+	<changeSet id="2" author="georgii">
+		<insert tableName="types">
+			<column name="id" value="dog"/>
+			<column name="name" value="cat"/>
+		</insert>
+	</changeSet>
+</databaseChangeLog>
