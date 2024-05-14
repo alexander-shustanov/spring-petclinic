@@ -154,7 +154,7 @@
 1. Через Amplicode Explorer создаем Docker Compose файл (+ > Docker > Docker Compose File).
    Имя файла: `docker-compose.staging.yaml`
 
-2. Добавляем сервис `Spring Boot` в `docker-compose.yaml` из палитры, меню Generate или 
+2. Добавляем сервис `Spring Boot` в `docker-compose.staging.yaml` из палитры, меню Generate или 
    тулбара.
 
 3. В поле Dockerfile нам необходимо указать Dockerfile для нашего приложения,
